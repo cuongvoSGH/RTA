@@ -39,7 +39,7 @@ Binance API → Kafka Producer → Kafka Topic → Spark Structured Streaming �
 1. **Clone the repository**
 
 ```bash
-$ git clone https://github.com/yourusername/RTA.git
+$ git clone https://github.com/cuongvoSGH/RTA.git
 ```
 
 2. **Start Kafka**
