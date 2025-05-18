@@ -20,6 +20,7 @@ def load_data():
         return pd.DataFrame()
 
     df = pd.concat([pd.read_parquet(os.path.join(DATA_DIR, f)) for f in files])
+    df = df.drop_duplicates().sort_values(by="timestamp")
     return df
 
 def compute_indicators(df):
@@ -116,6 +117,10 @@ def plot_rsi(df):
     fig.update_layout(title="📉 RSI", height=300)
     return fig
 
+price_chart_container = st.empty()
+rsi_chart_container = st.empty()
+lastest_container = st.empty()
+
 while True:
     df = load_data()
 
@@ -129,10 +134,10 @@ while True:
         rsi_fig = plot_rsi(df)
 
         # Layout
-        st.plotly_chart(price_fig, use_container_width=True)
-        st.plotly_chart(rsi_fig, use_container_width=True)
+        price_chart_container.plotly_chart(price_fig, use_container_width=True)
+        rsi_chart_container.plotly_chart(rsi_fig, use_container_width=True)
 
-        with st.expander("📄 Latest Data"):
-            st.dataframe(df.sort_values("datetime", ascending=False).tail(20))
+        with lastest_container.expander("📄 Latest Data"):
+            lastest_container.dataframe(df.sort_values("datetime", ascending=False).tail(20))
 
     time.sleep(REFRESH_INTERVAL)
