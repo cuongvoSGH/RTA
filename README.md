@@ -6,7 +6,6 @@ This project performs real-time data streaming, processing, and visualization of
 * 🛰️ **Binance API** for live market data
 * ⚡ **Apache Kafka** for real-time data ingestion
 * 🔥 **Apache Spark (Structured Streaming)** for processing
-* 🧠 **(Optional)** Machine learning for anomaly detection
 * 🌐 **Streamlit** for interactive data visualization
 
 ## 🚀 Project Overview
