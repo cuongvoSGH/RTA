@@ -39,8 +39,7 @@ Binance API → Kafka Producer → Kafka Topic → Spark Structured Streaming �
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/yourusername/realtime-crypto-analysis.git
-cd realtime-crypto-analysis
+$ git clone https://github.com/yourusername/RTA.git
 ```
 
 2. **Start Kafka**
@@ -56,19 +55,22 @@ $ bin/kafka-topics.sh --list --bootstrap-server localhost:9092
 3. **Run Kafka Producer (Binance API)**
 
 ```bash
+$ cd ~/RTA
 $ python3 binance_producer.py
 ```
 
 4. **Start Spark Streaming**
 
 ```bash
+$ cd ~/RTA
 $ spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0 ~/Realtime_Analytics/quant_consumer.py
 ```
 
 5. **Launch Streamlit Dashboard**
 
 ```bash
-streamlit run app.py
+$ cd ~/RTA
+$ streamlit run app.py
 ```
 
 ## 📁 Project Structure
