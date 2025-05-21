@@ -34,6 +34,18 @@ i = 0
 
 keys = ["timestamp", "open", "high", "low", "close", "volume"]
 
+binance_data = get_historical_data('BTCUSDT', '1m', '6 hours ago UTC')
+
+print("Fetching initial data for 6 hours...")
+
+for cryto_data in binance_data:
+    values = [int(cryto_data[0])] + [float(x) for x in cryto_data[1:]]
+    data_dict = dict(zip(keys, values))
+    producer.send(topic, value=data_dict)
+    print(f"Sent {topic} - {i}: {data_dict}")
+
+print("Streaming data every minute...")
+
 while True:
     i +=1
     binance_data = get_historical_data('BTCUSDT', '1m', '1 minute ago UTC')
