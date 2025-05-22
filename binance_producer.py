@@ -45,6 +45,7 @@ for cryto_data in binance_data:
     print(f"Sent {topic} - {i}: {data_dict}")
 
 print("Streaming data every minute...")
+time.sleep(60)  # Sleep for 1 minute before starting the stream
 
 while True:
     i +=1

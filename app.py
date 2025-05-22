@@ -25,7 +25,7 @@ schema = StructType([
 
 # Streamlit app
 st.set_page_config(page_title="📈 Real-Time Trading Dashboard", layout="wide")
-st.title("📊 Real-Time Trading with Candlestick, EMA, RSI & Signals")
+st.title("📊 Real-Time Trading with Candlestick, MA, RSI & Signals")
 
 DATA_DIR = "/tmp/stream_output/"
 # Refresh every 65 seconds
@@ -123,7 +123,8 @@ def plot_rsi(df):
 def plot_total_asset(df):
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=df["timestamp"], y=df["total_value"], line=dict(color="blue")))
-    fig.add_hline(y=10000, line_dash="dash", line_color="red")
+    fig.add_hline(y=10000, line_dash="dash", line_color="green")
+    fig.add_hline(y=9300, line_dash="dash", line_color="red")
     fig.update_layout(title="📉 Total Asset", height=300)
     return fig
 
@@ -163,6 +164,7 @@ def trading_strategy(df):
 price_chart_container = st.empty()
 rsi_chart_container = st.empty()
 lastest_container = st.empty()
+log_container = st.empty()
 pnl = st.empty()
 
 portfolio_log = pd.DataFrame(columns=["timestamp", "action", "crypto", "price", "budget", "total_value"])
@@ -189,7 +191,10 @@ while True:
         pnl.plotly_chart(pnl_fig, use_container_width=True)
         rsi_chart_container.plotly_chart(rsi_fig, use_container_width=True)
 
+        with log_container.expander("📜 Trading Log"):
+            log_container.dataframe(portfolio_log.sort_values("timestamp", ascending=False).tail(10))
+
         with lastest_container.expander("📄 Latest Data"):
-            lastest_container.dataframe(df.sort_values("datetime", ascending=False).tail(10))
+            lastest_container.dataframe(df.sort_values("datetime", ascending=False).head(10))
 
     time.sleep(REFRESH_INTERVAL)
